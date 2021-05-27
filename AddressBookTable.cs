@@ -14,7 +14,7 @@ namespace AddressBookLinQ
 
         
 
-        public void createAddressBookTable()
+        public DataTable createAddressBookTable()
         {
             dataTable.Columns.Add("FirstName", typeof(string));
             dataTable.Columns.Add("LastName", typeof(string));
@@ -31,6 +31,7 @@ namespace AddressBookLinQ
             dataTable.Rows.Add("Dameto", "Swami", "Panji", "Panaji", "Goa", 43254, 7777743210, "asd@gmail.com");
             dataTable.Rows.Add("Rama", "Magare", "Indor", "Indor", "MP", 43254, 7877743990, "Rama@gmail.com");
             dataTable.Rows.Add("Rekha", "Swami", "baroda", "Baroda", "MP", 43254, 7888743210, "rekha@gmail.com");
+            return dataTable;
 
         }
         public void displayAddressBook()
@@ -47,5 +48,35 @@ namespace AddressBookLinQ
                 Console.WriteLine("Email:-" + row.Field<string>("Email"));
             }
         }
+        public void addContact(Contact contact) //ADDING THE PROFILES
+        {
+            dataTable.Rows.Add(contact.FirstName, contact.LastName, contact.Address, contact.City,
+            contact.State, contact.ZipCode, contact.PhoneNumber, contact.Email);
+            Console.WriteLine("Added contact successfully");
+        }
+
+        public void editContact(DataTable dataTable) //EDITING EXISTING DETAILS OF PROFILE
+        {
+            var recordData = dataTable.AsEnumerable().Where(data => data.Field<string>("FirstName") == "Pratibha");
+            foreach (var contact in recordData)
+            {
+                contact.SetField("LastName", "Karande");
+                contact.SetField("Address", "Seawoods");
+                Console.WriteLine("Updated contact");
+                displayAddressBook();
+            }
+        }
+    }
+    public class Contact // CONTACTS GET & SET METHOD
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public int ZipCode { get; set; }
+        public long PhoneNumber { get; set; }
+        public string Email { get; set; }
+
     }
 }
