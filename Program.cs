@@ -11,6 +11,9 @@ namespace AddressBookLinQ
         static void Main(string[] args)
         {
             Console.WriteLine("Address Boook Using LInQ");
+            AddressBookTable addressBookDataTable = new AddressBookTable();
+            addressBookDataTable.createAddressBookTable();
+            Console.Read();
         }
     }
 }
